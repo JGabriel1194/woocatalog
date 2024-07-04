@@ -1,5 +1,10 @@
 # Woocatalog
 
+Desarrollo de una pequeña app que permite generar un catálogo de productos de una tienda con woocomerce.
+
+<img width="1426" alt="image" src="https://github.com/JGabriel1194/woocatalog/assets/54078449/e31b47a0-b42f-43b5-b506-f41400dada37">
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
 
 ## Development server
