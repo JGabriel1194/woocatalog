@@ -1,0 +1,98 @@
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Catalogo</span>
+    <div class="col-3">
+      <select
+        class="form-select col-md-3"
+        aria-label="Categoria"
+        (change)="getProductCat($event)"
+        name="select"
+        id="select"
+      >
+        <option selected>Todos los productos</option>
+        <option *ngFor="let category of categories" value="{{ category.id }}">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-3">
+      <select
+        class="form-select col-md-3"
+        aria-label="Categoria"
+        (change)="pageChange($event)"
+        name="select"
+        id="select"
+      >
+        <option *ngFor="let page of pages" value="{{ page.id }}">
+          {{ page.id }}
+        </option>
+      </select>
+    </div>
+    <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="activeNormal()" checked>
+  <label class="form-check-label" for="flexCheckDefault">
+    Precio normal
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" (change)="activeMayorista()" checked>
+  <label class="form-check-label" for="flexCheckChecked">
+    Precio mayorista
+  </label>
+</div>
+    <a class="btn btn-primary" (click)="downloadPDF()">
+      <i class="fas fa-download"></i>
+      Descargar
+    </a>
+  </div>
+</nav>
+<div class="body">
+  <div *ngIf="loader">
+    <span class="loader"></span>
+  </div>
+  <div class="page" size="A4" id="page" *ngIf="!loader">
+    <div class="col-md-11 cuerpo">
+      <div class="row tittle">
+        <div class="col-md-4">
+          <img
+            src="https://elmayoristaec.com/wp-content/uploads/2023/08/logo-ElMayoristaEC.png"
+            alt=""
+          />
+        </div>
+        <div class="col-md-8">
+          <h2 class="text-center">Catálogo de productos</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let product of products">
+          <div class="card text-center mb-4">
+            <div class="header">
+              <div>{{ product.name }}</div>
+            </div>
+            <img
+              class="card-img-top productimg"
+              src="{{ product.images[0].src }}"
+              alt="Card image cap"
+              *ngIf="product.images.length > 0"
+            />
+            <img
+              class="card-img-top productimg"
+              *ngIf="product.images.length == 0"
+              src="https://elmayoristaec.com/wp-content/uploads/woocommerce-placeholder-600x600.png"
+              alt=""
+            />
+            <div class="footer bg-danger">
+              <div class="text-white">
+                <div class="card-text" *ngIf="pNormal">Precio Normal: ${{ product.price }}</div>
+                <div class="card-text" *ngIf="pMayorista">
+                  Precio Mayorista: ${{ getWholesalePrice(product) }}
+                </div>
+              </div>
+              <div class="sku">{{ product.sku }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
